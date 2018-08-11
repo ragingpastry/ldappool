@@ -270,7 +270,6 @@ class ConnectionManager(object):
 
         if not connected:
             if isinstance(exc, (ldap.NO_SUCH_OBJECT,
-                                ldap.INVALID_CREDENTIALS,
                                 ldap.SERVER_DOWN)):
                 raise exc
 
