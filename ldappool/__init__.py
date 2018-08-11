@@ -254,6 +254,10 @@ class ConnectionManager(object):
                 connected = True
             except ldap.LDAPError as error:
                 exc = error
+                if isinstance(exc, ldap.INVALID_CREDENTIALS):
+                    log.error('Invalid credentials. Cancelling retry',
+                              exc_info=True)
+                    raise exc
                 time.sleep(self.retry_delay)
                 if tries < self.retry_max:
                     log.info('Failure attempting to create and bind '
